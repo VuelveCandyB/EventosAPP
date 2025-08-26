@@ -78,7 +78,7 @@ except ModuleNotFoundError:
     CAL_AVAILABLE = False
 
 # ======================= CONFIG BASE =======================
-APP_BASE_URL = os.getenv("APP_BASE_URL", "http://192.168.17.103:8501")
+APP_BASE_URL = os.getenv("APP_BASE_URL", "https://eventosapp-ugso.onrender.com:8501")
 ROOMS = [
     "Glass Room 1",
     "Glass Room 2",
@@ -222,7 +222,7 @@ def request_new_form_reset_and_rerun():
 @st.cache_resource
 def get_conn():
     
-    APP_DIR = Path(__file__).resolve().parent   # carpeta donde está app.py
+    APP_DIR = Path(__file__).resolve().parent   # carpeta donde está Home.py
     #DATA_DIR = APP_DIR / "data"
     DATA_DIR = Path(os.getenv("DATA_DIR", APP_DIR / "data"))  # usa disco en Render, carpeta local en dev
     #DATA_DIR.mkdir(exist_ok=True)

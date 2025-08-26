@@ -3,11 +3,11 @@ import streamlit as st
 from utils.auth import gate
 
 
-st.set_page_config(page_title="Inicio", page_icon="🏠", layout="wide")
+st.set_page_config(page_title="Inicio", page_icon="🏇", layout="wide")
 
 if not gate():
     st.stop()
 
-st.title("🏠 Inicio")
-st.write("Bienvenido al sistema de reservas.")
+st.title("🏇 Inicio")
+st.write("Bienvenido al sistema para reservar salones de actividades.")
 st.write("Usa el menú de la izquierda para ir a **Reservas**.")

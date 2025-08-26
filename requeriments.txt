@@ -1,6 +1,0 @@
-streamlit==1.48.0
-streamlit-calendar==1.4.0
-pandas==2.2.2
-requests==2.32.3
-auth==0.5.3
-db-sqlite3==0.0.1

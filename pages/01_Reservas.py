@@ -223,8 +223,10 @@ def request_new_form_reset_and_rerun():
 def get_conn():
     
     APP_DIR = Path(__file__).resolve().parent   # carpeta donde está app.py
-    DATA_DIR = APP_DIR / "data"
-    DATA_DIR.mkdir(exist_ok=True)
+    #DATA_DIR = APP_DIR / "data"
+    DATA_DIR = Path(os.getenv("DATA_DIR", APP_DIR / "data"))  # usa disco en Render, carpeta local en dev
+    #DATA_DIR.mkdir(exist_ok=True)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     # Ahora sí guarda la DB dentro de la carpeta /data
     db_path = DATA_DIR / "bookings.db"

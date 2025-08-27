@@ -1,6 +1,14 @@
 # utils/auth.py
 import os
 import streamlit as st
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1] if Path(__file__).parent.name in ("pages","utils") else Path(__file__).resolve().parent
+LOGO = ROOT / "img" / "logo.png"   # tu archivo está en /img/logo.png
+
+st.set_page_config(page_title="Calendario de Eventos", layout="wide",
+                   page_icon=str(LOGO) if LOGO.exists() else "📅")
 
 # ON/OFF global
 AUTH_ENABLED = os.getenv("AUTH_ENABLED", "1") == "1"
@@ -60,7 +68,10 @@ def gate() -> bool:
                 st.rerun()
         return True
 
-    st.title("🔐 Iniciar sesión")
+    if LOGO.exists():
+        st.image(str(LOGO), width=200)
+    st.title("Reservación de Salones de Actividades")
+    st.subheader("🔐 Iniciar sesión")
     u = st.text_input("Usuario", key="login_user")
     p = st.text_input("Contraseña", type="password", key="login_pass")
     if st.button("Entrar", type="primary"):

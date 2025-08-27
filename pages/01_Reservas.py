@@ -26,12 +26,19 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+from pathlib import Path
 
+
+ROOT = Path(__file__).resolve().parents[1] if Path(__file__).parent.name in ("pages","utils") else Path(__file__).resolve().parent
+LOGO = ROOT / "img" / "logo.png"   # tu archivo está en /img/logo.png
+
+st.set_page_config(page_title="Calendario de Eventos", layout="wide",
+                   page_icon=str(LOGO) if LOGO.exists() else "📅")
 
 # ======================= PAGE CONFIG (temprano) =======================
 APP_DIR = Path(__file__).resolve().parent
 ENV_LOGO = os.getenv("APP_LOGO_PATH", "").strip()
-DEFAULT_LOGO = APP_DIR / "img" / "logo.png"
+
 
 
 def resolve_logo_path():
@@ -40,7 +47,7 @@ def resolve_logo_path():
         if not p.is_absolute():
             p = (APP_DIR / ENV_LOGO).resolve()
         return p
-    return DEFAULT_LOGO
+    return LOGO
 
 LOGO_PATH = resolve_logo_path()
 PAGE_ICON = str(LOGO_PATH) if LOGO_PATH.exists() else "📅"
@@ -553,22 +560,21 @@ if changed:
 # ======================= HEADER CON LOGO =======================
 hc1, hc2 = st.columns([1, 6])
 with hc1:
-    if LOGO_PATH.exists():
-        st.image(str(LOGO_PATH), width=180)
+    if LOGO.exists():
+        st.image(str(LOGO), width=250)
 with hc2:
-    st.title("📅 Reservas de espacios")
-    st.caption("Calendario con prevención de choques, capacidad por sala y recordatorios por WhatsApp.")
+    st.title("📅 Reservación de espacios")
+    st.caption("Calendario, capacidad por sala y recordatorios por WhatsApp.")
 
 # ======================= SIDEBAR =======================
-if LOGO_PATH.exists():
-    st.sidebar.image(str(LOGO_PATH), use_container_width=True)
+
 
 st.sidebar.header("Filtros")
 room_filter = st.sidebar.selectbox("Salones", ["(Todas)"] + ROOMS)
 room_filter = None if room_filter == "(Todas)" else room_filter
 
 # ======================= ADMIN: SALAS Y CAPACIDADES =======================
-with st.expander("🛠️ Salas y capacidades (editar)"):
+with st.expander("🛠️ Salones y capacidades (editar)"):
     df_rooms = read_rooms(conn)
     edited = st.data_editor(
         df_rooms,
@@ -593,12 +599,12 @@ with st.expander("➕ Crear nueva reservación", expanded=True):
         if "new_room" not in st.session_state:
             st.session_state["new_room"] = ROOMS[0]  # inicializa con el primero
 
-            room = st.selectbox(
-                "Salón",
-                ROOMS,
-                index=ROOMS.index(st.session_state["new_room"]),
-                key="new_room"
-            )
+        room = st.selectbox(
+            "Salón",
+            ROOMS,
+            index=ROOMS.index(st.session_state["new_room"]),
+            key="new_room"
+        )
         cap_vis = get_room_capacity(conn, st.session_state["new_room"])
         if cap_vis is not None:
             st.caption(f"Capacidad máxima de {st.session_state['new_room']}: **{cap_vis}** personas")

@@ -561,9 +561,9 @@ if changed:
 hc1, hc2 = st.columns([1, 6])
 with hc1:
     if LOGO.exists():
-        st.image(str(LOGO), width=250)
+        st.image(str(LOGO), width=200)
 with hc2:
-    st.title("📅 Reservación de espacios")
+    st.title("Reservación de espacios")
     st.caption("Calendario, capacidad por sala y recordatorios por WhatsApp.")
 
 # ======================= SIDEBAR =======================

@@ -70,7 +70,7 @@ def gate() -> bool:
 
     if LOGO.exists():
         st.image(str(LOGO), width=200)
-    st.title("Reservación de Salones de Actividades")
+    st.title("Reservación de Salones")
     st.subheader("🔐 Iniciar sesión")
     u = st.text_input("Usuario", key="login_user")
     p = st.text_input("Contraseña", type="password", key="login_pass")

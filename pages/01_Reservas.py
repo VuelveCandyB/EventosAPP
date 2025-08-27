@@ -32,8 +32,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1] if Path(__file__).parent.name in ("pages","utils") else Path(__file__).resolve().parent
 LOGO = ROOT / "img" / "logo.png"   # tu archivo está en /img/logo.png
 
-st.set_page_config(page_title="Calendario de Eventos", layout="wide",
-                   page_icon=str(LOGO) if LOGO.exists() else "📅")
+# st.set_page_config(page_title="Calendario de Eventos", layout="wide",
+#                    page_icon=str(LOGO) if LOGO.exists() else "📅")
 
 # ======================= PAGE CONFIG (temprano) =======================
 APP_DIR = Path(__file__).resolve().parent

@@ -3,7 +3,7 @@ import streamlit as st
 from utils.auth import gate
 
 
-st.set_page_config(page_title="Inicio", page_icon="🏇", layout="wide")
+
 
 if not gate():
     st.stop()

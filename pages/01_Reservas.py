@@ -27,7 +27,7 @@ import pandas as pd
 import streamlit as st
 
 from pathlib import Path
-
+#st.set_page_config(page_title="Calendario de Eventos", layout="wide", page_icon=PAGE_ICON)
 
 ROOT = Path(__file__).resolve().parents[1] if Path(__file__).parent.name in ("pages","utils") else Path(__file__).resolve().parent
 LOGO = ROOT / "img" / "logo.png"   # tu archivo está en /img/logo.png
@@ -52,7 +52,7 @@ def resolve_logo_path():
 LOGO_PATH = resolve_logo_path()
 PAGE_ICON = str(LOGO_PATH) if LOGO_PATH.exists() else "📅"
 
-st.set_page_config(page_title="Calendario de Eventos", layout="wide", page_icon=PAGE_ICON)
+
 
 # ======================= AUTH (fallback si falta utils.auth) =======================
 try:
@@ -560,15 +560,17 @@ if changed:
 # ======================= HEADER CON LOGO =======================
 hc1, hc2 = st.columns([1, 6])
 with hc1:
-    if LOGO.exists():
-        st.image(str(LOGO), width=200)
+    st.title("🏇")
+
 with hc2:
     st.title("Reservación de espacios")
     st.caption("Calendario, capacidad por sala y recordatorios por WhatsApp.")
 
 # ======================= SIDEBAR =======================
 
-
+if LOGO.exists():
+    st.sidebar.image(str(LOGO), width=170)
+    st.markdown("---")
 st.sidebar.header("Filtros")
 room_filter = st.sidebar.selectbox("Salones", ["(Todas)"] + ROOMS)
 room_filter = None if room_filter == "(Todas)" else room_filter
